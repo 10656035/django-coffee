@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Roast(models.TextChoices):
     # enum = value, display
@@ -11,6 +12,7 @@ class Roast(models.TextChoices):
     FULL_CITY = 'Full-City', '微深度烘焙'
     FRENCH = 'French', '極深烘焙'
     ITALIAN = 'Italian', '極深度烘焙'
+
 
 class OriginPlace(models.Model):
     name = models.CharField('名稱', max_length=20, unique=True)
