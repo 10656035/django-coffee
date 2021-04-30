@@ -23,15 +23,15 @@ class OriginPlace(models.Model):
         verbose_name_plural = '產地'
 
 
-class MainProcessing(models.Model):
+class Tag(models.Model):
     name = models.CharField('名稱', max_length=20, unique=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = '主要處理法'
-        verbose_name_plural = '主要處理法'
+        verbose_name = '標籤'
+        verbose_name_plural = '標籤'
 
 
 class Grinding(models.Model):
@@ -41,29 +41,21 @@ class Grinding(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = '磨豆方式'
-        verbose_name_plural = '磨豆方式'
+        verbose_name = '標籤'
+        verbose_name_plural = '標籤'
 
 
 class Coffee(models.Model):
     name = models.CharField('名稱', max_length=20, unique=True)
-    weight = models.PositiveIntegerField('重量')
-    taste = models.TextField('味道')
     description = models.TextField('描述')
     roast = models.CharField('烘培程度', max_length=10, choices=Roast.choices)
     price = models.PositiveIntegerField('價格')
-    discount = models.PositiveIntegerField('優惠價格')
     origin_place = models.ForeignKey(
         OriginPlace,
         on_delete=models.PROTECT,
         verbose_name='產地',
     )
-    main_processing = models.ForeignKey(
-        MainProcessing,
-        on_delete=models.PROTECT,
-        verbose_name='主要處理法',
-    )
-    grindings = models.ManyToManyField(Grinding, verbose_name='磨豆方式')
+    tags = models.ManyToManyField(Tag, verbose_name='標籤')
 
     def __str__(self):
         return self.name

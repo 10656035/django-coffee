@@ -1,28 +1,40 @@
 {% extends "layout.html" %}
 {% block main %}
-<table class="table table-striped">
-    <tr>
-        <th>#</th>
-        <th>名稱</th>
-        <th>烘培程度</th>
-        <th>優惠價格</th>
-    </tr>
-    <tr>
-        {% for coffee in coffees %}
-        <td>{{ coffee.id }}</td>
-        <td>
-            <a href="{% url 'coffees:show' coffee.id %}">
-                {{coffee.name}}
+    <div class="row">
+        <div class="col">
+            <!-- 加上導向新增頁面的連結 -->
+            <a href="{% url 'coffees:add' %}"
+               class="btn btn-outline-info float-right">
+                新增咖啡
             </a>
-        </td>
-        <td>{{ coffee.get_roast_display }}</td>
-        <td>{{ coffee.discount }}</td>
-        {% empty %}
-        <td colspan="4">沒有咖啡資料</td>
-        {% endfor %}
-    </tr>
-</table>
-{% endblock %}
+            <h2>咖啡列表</h2>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>名稱</th>
+                        <th>烘培程度</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+
+                {% for coffee in coffees %}
+                <tr>
+                    <td>{{ coffee.id }}</td>
+                    <td>
+                        <a href="{% url 'coffees:show' coffee.id %}">
+                            {{coffee.name}}
+                        </a>
+                    </td>
+                    <td>{{ coffee.get_roast_display }}</td>
+                    <td>{{ coffee.price }}</td>
+                {% empty %}
+                <td colspan="4">沒有咖啡資料</td>
+                {% endfor %}
+                </tr>
+            </table>
+    {% endblock %}
 <!--                {% for coffee in coffees %}-->
 <!--                <p>{{ coffee.name}}</p>-->
 <!--                {% endfor %}-->
